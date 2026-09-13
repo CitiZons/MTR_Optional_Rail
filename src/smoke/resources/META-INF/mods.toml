@@ -1,0 +1,7 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+[[mods]]
+modId="optional_rail_runtime_probe"
+version="1.0"
+displayName="Optional Rail Runtime Probe (test only)"

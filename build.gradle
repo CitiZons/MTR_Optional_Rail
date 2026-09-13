@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'net.minecraftforge.gradle' version '[6.0.25,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
+group = 'org.mtroptional'
+version = '0.1.0'
+base { archivesName = 'mtr_optional_rail_addon' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    runs {
+        client { workingDirectory project.file('run'); mods { mtr_optional_rail_addon { source sourceSets.main } } }
+        server { workingDirectory project.file('run-server'); args '--nogui'; mods { mtr_optional_rail_addon { source sourceSets.main } } }
+    }
+}
+mixin { add sourceSets.main, 'mtroptional.refmap.json'; config 'mtroptional.mixins.json' }
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.18'
+    implementation files('../MTR_BRsignal_addon/libs/MTR-forge-4.0.3+1.20.1.jar')
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+processResources { inputs.property 'version', project.version; filesMatching('META-INF/mods.toml') { expand version: project.version } }
+processResources {
+    from('LICENSE')
+    from('LICENSES') { into('LICENSES') }
+    from('THIRD_PARTY_NOTICES.md')
+}
+jar { manifest { attributes 'MixinConfigs': 'mtroptional.mixins.json' }; finalizedBy 'reobfJar' }
+tasks.register('regression', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'org.mtroptional.Regression'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) }
+}
+check.dependsOn regression
+
+// Optional isolated runtime probe; never included in the deliverable mod.
+sourceSets { smoke { compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output } }
+tasks.register('smokeJar', Jar) {
+    archiveBaseName = 'optional-rail-runtime-probe'
+    from sourceSets.smoke.output
+}
+reobf { smokeJar {} }
+tasks.named('smokeJar') { finalizedBy 'reobfSmokeJar' }

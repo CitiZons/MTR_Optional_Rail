@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+[[mods]]
+modId="mtr_optional_rail_addon"
+version="${version}"
+displayName="MTR Optional Rail Addon"
+authors="CitiZons"
+description='''Node offsets, rotation and cant in the MTR brush editor. No new blocks or items.'''
+[[dependencies.mtr_optional_rail_addon]]
+modId="forge"
+mandatory=true
+versionRange="[47.4.18,48)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.mtr_optional_rail_addon]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.mtr_optional_rail_addon]]
+modId="mtr"
+mandatory=true
+versionRange="[4.0.3,4.0.4)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.mtr_optional_rail_addon]]
+modId="mtr_brsignal_addon"
+mandatory=false
+versionRange="[0,)"
+ordering="AFTER"
+side="BOTH"
