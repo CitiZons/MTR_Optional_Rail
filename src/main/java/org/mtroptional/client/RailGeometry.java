@@ -48,7 +48,7 @@ public final class RailGeometry {
             }
         } finally { if(old==null) FRAME.remove(); else FRAME.set(old); }
     }
-    private static NodeSettings orient(NodeSettings v,Position pos,Vector tangent) {
+    public static NodeSettings orient(NodeSettings v,Position pos,Vector tangent) {
         var level=net.minecraft.client.Minecraft.getInstance().level;
         if(level==null) return v;
         var state=level.getBlockState(BlockPos.of(key(pos)));

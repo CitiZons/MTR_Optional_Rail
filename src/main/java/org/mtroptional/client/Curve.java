@@ -24,14 +24,24 @@ public final class Curve {
     }
     public Vector point(double t) {
         t=Math.max(0,Math.min(1,t));
+        return math.getPosition(t*length,false).add(offset(t));
+    }
+    /** The authored displacement, shared by rails, car bodies and bogies. */
+    public Vector offset(double t) {
+        t=Math.max(0,Math.min(1,t));
         double t2=t*t,t3=t2*t;
         double h0=2*t3-3*t2+1,h1=-2*t3+3*t2,h2=t3-2*t2+t,h3=t3-t2;
-        return math.getPosition(t*length,false).add(h0*a.x()+h1*b.x()+h2*da.x+h3*db.x,h0*a.y()+h1*b.y(),h0*a.z()+h1*b.z()+h2*da.z+h3*db.z);
+        return new Vector(h0*a.x()+h1*b.x()+h2*da.x+h3*db.x,verticalOffset(a,b,t),h0*a.z()+h1*b.z()+h2*da.z+h3*db.z);
     }
     public Vector tangent(double t) {
         Vector delta=point(t+0.00001).add(point(t-0.00001).multiply(-1,-1,-1));
         double horizontal=Math.hypot(delta.x,delta.z);
         return horizontal<1E-10 ? new Vector(1,0,0) : delta.multiply(1/horizontal,1/horizontal,1/horizontal);
+    }
+    public static double verticalOffset(NodeSettings a, NodeSettings b, double t) {
+        t=Math.max(0,Math.min(1,t));
+        double s=t*t*(3-2*t);
+        return a.y()*(1-s)+b.y()*s;
     }
     public double cant(double t) { double s=t*t*(3-2*t); return a.cant()*(1-s)+b.cant()*s; }
 }

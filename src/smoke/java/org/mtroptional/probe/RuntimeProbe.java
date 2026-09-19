@@ -23,6 +23,7 @@ public final class RuntimeProbe {
         if(!opened && mc.screen instanceof TitleScreen && mc.getOverlay()==null) {
             try {
                 Class.forName("org.mtr.mod.render.RenderRails");
+                Class.forName("org.mtr.mod.render.RenderVehicles");
                 Class.forName("org.mtr.mod.render.MainRenderer");
                 mc.hitResult=new BlockHitResult(new Vec3(.5,64,.5),Direction.UP,new BlockPos(0,64,0),false);
                 mc.setScreen(new RailModifierScreen("runtime-probe"));

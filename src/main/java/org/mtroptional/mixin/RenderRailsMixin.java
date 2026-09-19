@@ -23,7 +23,13 @@ public abstract class RenderRailsMixin {
             transform=transform.copy();
             // MTR first rotates model X by PI, reversing its local vertical axis.
             float roll=(float)(-(frame.cantA()+frame.cantB())/2*(flip?-1:1));
-            transform.add(graphics -> graphics.rotateZDegrees(roll));
+            // Roll about the same path centre as vehicles, not the elevated model origin.
+            double pivot = resource.getModelYOffset();
+            transform.add(graphics -> {
+                graphics.translate(0, pivot, 0);
+                graphics.rotateZDegrees(roll);
+                graphics.translate(0, -pivot, 0);
+            });
         }
         // Models are already rolled in their local coordinate system; do not bank their textures again.
         RailGeometry.FRAME.remove();

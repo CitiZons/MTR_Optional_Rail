@@ -14,10 +14,10 @@ import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair
 
 public final class ClientNodes {
     private static final Map<String, Map<Long, RailNetwork.State>> DIMENSIONS = new HashMap<>();
-    public static void clear() { DIMENSIONS.clear(); }
+    public static void clear() { DIMENSIONS.clear(); RailTiltClient.clear(); }
     public static void receive(RailNetwork.State state) {
         Map<Long, RailNetwork.State> values = DIMENSIONS.computeIfAbsent(state.dimension(), ignored -> new HashMap<>());
-        if (state.clear()) values.clear();
+        if (state.clear()) { values.clear(); RailTiltClient.clear(); }
         else values.put(state.pos(), state);
         EditorEvents.updated(state);
     }
