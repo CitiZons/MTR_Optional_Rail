@@ -6,6 +6,20 @@
 
 MTR Optional Rail Addon adds editable XYZ offsets, node rotation and rail cant to MTR rail nodes, keeping curved and banked track sections visually continuous.
 
+当前为 **0.1.1**。
+
+Current version: **0.1.1**.
+
+## 0.1.1 更新 / Updates
+
+- 修复开启 Iris/Oculus 光影时轨道实体颜色通道丢失的问题；倾斜轨道、钢轨、道砟、枕木和扣件统一走可识别的实体渲染路径。
+- 修复 Optional Rail 视觉曲线适配接口在版本不匹配或运行时异常时导致整段轨道消失的问题，自动回退到 MTR 原生轨道几何。
+- 保持节点偏移、旋转、超高数据格式和服务端同步协议不变。
+
+- Fixed the missing entity color output for rail rendering with Iris/Oculus shader packs; banked rails, steel, ballast, sleepers and fasteners now use a shader-compatible entity path.
+- Fixed Optional Rail adapter failures that could make an entire rail segment disappear after an API mismatch or runtime exception; the addon now falls back to native MTR rail geometry.
+- Node offset, rotation, cant data formats and server synchronization remain unchanged.
+
 ## 功能 / Features
 
 | 中文 | English |
@@ -22,9 +36,9 @@ The addon adjusts the visual presentation of MTR nodes, rails and vehicles. It a
 
 ## 安装 / Install
 
-需要 Minecraft 1.20.1、Forge 47.4.18 和对应版本的 MTR Forge。将 `mtr_optional_rail_addon-0.1.0.jar` 放入客户端和服务器的 `mods/` 文件夹。
+需要 Minecraft 1.20.1、Forge 47.4.18 和对应版本的 MTR Forge。将 `mtr_optional_rail_addon-0.1.1.jar` 放入客户端和服务器的 `mods/` 文件夹。
 
-Requires Minecraft 1.20.1, Forge 47.4.18 and a matching MTR Forge build. Put `mtr_optional_rail_addon-0.1.0.jar` in the `mods/` folder on both the client and server.
+Requires Minecraft 1.20.1, Forge 47.4.18 and a matching MTR Forge build. Put `mtr_optional_rail_addon-0.1.1.jar` in the `mods/` folder on both the client and server.
 
 ## 使用 / Usage
 
